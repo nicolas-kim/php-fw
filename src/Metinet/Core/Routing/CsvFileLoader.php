@@ -29,7 +29,7 @@ class CsvFileLoader implements FileLoader
                     $action
                 ));
             }
-}
+        }
 
         return $routes;
     }
