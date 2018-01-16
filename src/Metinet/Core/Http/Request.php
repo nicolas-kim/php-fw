@@ -70,9 +70,9 @@ class Request
         return $this->method;
     }
 
-    public function getQuery(): array
+    public function getQuery(): QueryParameters
     {
-        return $this->query;
+        return new QueryParameters($this->query);
     }
 
     public function getBody(): ?string

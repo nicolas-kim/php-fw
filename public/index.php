@@ -30,7 +30,7 @@ $loader = new ChainLoader([
 try {
     $controllerResolver = new ControllerResolver(new RouteUrlMatcher($loader->load()));
     $callableAction = $controllerResolver->resolve($request);
-    $response = call_user_func($callableAction);
+    $response = call_user_func($callableAction, $request);
 } catch (RouteNotFound $e) {
     $response = new Response('Aucune page ici', 404);
 } catch (Exception $e) {

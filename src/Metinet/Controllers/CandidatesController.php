@@ -2,6 +2,7 @@
 
 namespace Metinet\Controllers;
 
+use Metinet\Core\Http\Request;
 use Metinet\Core\Http\Response;
 
 /**
@@ -10,19 +11,18 @@ use Metinet\Core\Http\Response;
 
 class CandidatesController
 {
-    public function sayHello(): Response
+    public function sayHello(Request $request): Response
     {
-//        throw new \Exception('Je ne dis pas bonjour aux Anonymous :(');
-
-        return new Response(sprintf('<p>Hello %s</p>', $name ?? 'Anonymous'));
+        return new Response(sprintf('<p>Hello %s</p>', $request->getQuery()->get('name', 'Anonymous')));
     }
 
-    public function disBonjour(): Response
+    public function disBonjour(Request $request): Response
     {
-        return new Response(sprintf('<p>Bonjour %s</p>', $name ?? 'Anonyme'));
+        return new Response(sprintf('<p>Bonjour %s</p>', $request->getQuery()->get('name', 'Anonyme')));
     }
 
-    public  function retrieveMemberList(): Response {
+    public  function retrieveMemberList(Request $request): Response
+    {
         $members = [
             ['name' => 'Boris', 'birthday' => '1984-08-21']
         ];
