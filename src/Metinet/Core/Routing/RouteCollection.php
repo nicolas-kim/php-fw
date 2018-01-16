@@ -30,4 +30,11 @@ class RouteCollection
     {
         return $this->routes;
     }
+
+    public function merge(RouteCollection $routes): void
+    {
+        foreach ($routes->all() as $route) {
+            $this->routes[] = $route;
+        }
+    }
 }

@@ -19,9 +19,7 @@ class ChainLoader implements FileLoader
     {
         $routes = new RouteCollection();
         foreach ($this->loaders as $loader) {
-            foreach ($loader->load()->all() as $route) {
-                $routes->add($route);
-            }
+            $routes->merge($loader->load());
         }
 
         return $routes;
