@@ -15,6 +15,7 @@ use Metinet\Core\Routing\PhpFileLoader;
 use Metinet\Core\Routing\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
 use Metinet\Core\Logger\FileLogger;
+use Metinet\Core\Logger\SimpleFormatter;
 
 $request = Request::createFromGlobals();
 
@@ -24,17 +25,20 @@ $loader = new ChainLoader([
     new PhpFileLoader([__DIR__ . '/../conf/routing.php'])
 ]);
 
-$logger = new FileLogger(__DIR__ . '/../var/logs/debug.log');
+$logger = new FileLogger(
+    __DIR__ . '/../var/logs/debug.log',
+    new SimpleFormatter('%url% -> [%date%] - %message% !!!')
+);
 
 try {
     $controllerResolver = new ControllerResolver(new RouteUrlMatcher($loader->load()));
     $callableAction = $controllerResolver->resolve($request);
     $response = call_user_func($callableAction, $request);
 } catch (RouteNotFound $e) {
-    $logger->log($e->getMessage());
+    $logger->log($e->getMessage(), ['url' => $request->getPath()]);
     $response = new Response('Page not found', 404);
 } catch (Throwable $e) {
-    $logger->log($e->getMessage());
+    $logger->log($e->getMessage(), ['url' => $request->getPath()]);
     $response = (function($message) {
         return new Response(sprintf('<p>Error: %s</p>', $message), 500);
     })($e->getMessage());
