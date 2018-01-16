@@ -1,2 +1,1 @@
-# route_name, path, methods, action
-admin, /admin, GET|POST, admin_dashboard
+admin,/admin,GET|POST,admin_dashboard
