@@ -10,6 +10,7 @@ use Metinet\Core\Routing\RouteNotFound;
 use Metinet\Core\Routing\JsonFileLoader;
 use Metinet\Core\Routing\CsvFileLoader;
 use Metinet\Core\Routing\PhpFileLoader;
+use Metinet\Core\Routing\ChainLoader;
 
 
 function retrieveMemberList(): Response {
@@ -35,9 +36,11 @@ function throwError($message): Response {
 
 $request = Request::createFromGlobals();
 
-$loader = new JsonFileLoader([__DIR__ . '/../conf/routing.json']);
-$loader = new CsvFileLoader([__DIR__ . '/../conf/routing.csv']);
-$loader = new PhpFileLoader([__DIR__ . '/../conf/routing.php']);
+$loader = new ChainLoader([
+    new JsonFileLoader([__DIR__ . '/../conf/routing.json']),
+    new CsvFileLoader([__DIR__ . '/../conf/routing.csv']),
+    new PhpFileLoader([__DIR__ . '/../conf/routing.php'])
+]);
 
 $routeUrlMatcher = new RouteUrlMatcher($loader->load());
 
