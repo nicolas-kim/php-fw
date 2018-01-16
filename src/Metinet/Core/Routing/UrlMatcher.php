@@ -9,5 +9,5 @@ use Metinet\Core\Http\Request;
 
 interface UrlMatcher
 {
-    public function match(Request $request): callable;
+    public function match(Request $request);
 }

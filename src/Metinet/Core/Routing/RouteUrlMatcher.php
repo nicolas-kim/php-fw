@@ -16,7 +16,7 @@ class RouteUrlMatcher implements UrlMatcher
         $this->routes = $routes;
     }
 
-    public function match(Request $request): callable
+    public function match(Request $request)
     {
         foreach ($this->routes->all() as $route) {
             if ($request->getPath() === $route->getPath()

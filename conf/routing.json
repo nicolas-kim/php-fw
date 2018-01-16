@@ -5,14 +5,21 @@
       "methods": [
         "GET"
       ],
-      "action": "retrieveMemberList"
+      "action": "Metinet:Controllers:CandidatesController::retrieveMemberList"
     },
     "hello": {
       "path": "/hello",
       "methods": [
         "GET"
       ],
-      "action": "sayHello"
+      "action": "Metinet:Controllers:CandidatesController::sayHello"
+    },
+    "bonjour": {
+      "path": "/bonjour",
+      "methods": [
+        "GET"
+      ],
+      "action": "Metinet:Controllers:CandidatesController::disBonjour"
     }
   }
 }
