@@ -14,10 +14,7 @@ use Metinet\Core\Routing\CsvFileLoader;
 use Metinet\Core\Routing\PhpFileLoader;
 use Metinet\Core\Routing\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
-
-function throwError($message): Response {
-    return new Response(sprintf('<p>Error: %s</p>', $message), 500);
-}
+use Metinet\Core\Logger\FileLogger;
 
 $request = Request::createFromGlobals();
 
@@ -27,13 +24,20 @@ $loader = new ChainLoader([
     new PhpFileLoader([__DIR__ . '/../conf/routing.php'])
 ]);
 
+$logger = new FileLogger(__DIR__ . '/../var/logs/debug.log');
+
 try {
     $controllerResolver = new ControllerResolver(new RouteUrlMatcher($loader->load()));
     $callableAction = $controllerResolver->resolve($request);
     $response = call_user_func($callableAction, $request);
 } catch (RouteNotFound $e) {
-    $response = new Response('Aucune page ici', 404);
-} catch (Exception $e) {
-    $response = throwError($e->getMessage());
+    $logger->log($e->getMessage());
+    $response = new Response('Page not found', 404);
+} catch (Throwable $e) {
+    $logger->log($e->getMessage());
+    $response = (function($message) {
+        return new Response(sprintf('<p>Error: %s</p>', $message), 500);
+    })($e->getMessage());
 }
+
 $response->send();
