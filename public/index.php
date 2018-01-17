@@ -9,29 +9,28 @@ use Metinet\Core\Http\Request;
 use Metinet\Core\Http\Response;
 use Metinet\Core\Routing\RouteUrlMatcher;
 use Metinet\Core\Routing\RouteNotFound;
-use Metinet\Core\Routing\JsonFileLoader;
-use Metinet\Core\Routing\CsvFileLoader;
-use Metinet\Core\Routing\PhpFileLoader;
-use Metinet\Core\Routing\ChainLoader;
+use Metinet\Core\Config\JsonFileLoader;
+use Metinet\Core\Config\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
 use Metinet\Core\Logger\FileLogger;
 use Metinet\Core\Logger\SimpleFormatter;
+use Metinet\Core\Config\Configuration;
 
 $request = Request::createFromGlobals();
 
 $loader = new ChainLoader([
-    new JsonFileLoader([__DIR__ . '/../conf/routing.json']),
-    new CsvFileLoader([__DIR__ . '/../conf/routing.csv']),
-    new PhpFileLoader([__DIR__ . '/../conf/routing.php'])
+    new JsonFileLoader([__DIR__ . '/../conf/app.json']),
 ]);
 
+$config = new Configuration($loader);
+
 $logger = new FileLogger(
-    __DIR__ . '/../var/logs/debug.log',
-    new SimpleFormatter('%url% -> [%date%] - %message% !!!')
+    str_replace('__DIR__', __DIR__, $config->getSection('logger')['path']),
+    new SimpleFormatter($config->getSection('logger')['format'])
 );
 
 try {
-    $controllerResolver = new ControllerResolver(new RouteUrlMatcher($loader->load()));
+    $controllerResolver = new ControllerResolver(new RouteUrlMatcher($config->getRoutes()));
     $callableAction = $controllerResolver->resolve($request);
     $response = call_user_func($callableAction, $request);
 } catch (RouteNotFound $e) {
