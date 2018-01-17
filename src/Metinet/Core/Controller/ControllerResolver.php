@@ -24,7 +24,17 @@ class ControllerResolver
         [$controller, $method] = explode('::', $action);
         $controller = strtr($controller, ':', '\\');
 
+        if (!class_exists($controller)) {
+
+            throw UnableToResolveController::controllerNotFound($controller);
+        }
+
         $controllerInstance = new $controller();
+
+        if (!method_exists($controllerInstance, $method)) {
+
+            throw UnableToResolveController::actionNotFoundInController($method, $controller);
+        }
 
         return [$controllerInstance, $method];
     }
