@@ -2,7 +2,7 @@
 
 ## Install dependencies
 
-`composer install`
+`composer install` test
 
 ## Run the application
 
