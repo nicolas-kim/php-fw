@@ -39,9 +39,7 @@ try {
     $response = new Response('Page not found', 404);
 } catch (Throwable $e) {
     $logger->log($e->getMessage(), ['url' => $request->getPath()]);
-    $response = (function($message) {
-        return new Response(sprintf('<p>Error: %s</p>', $message), 500);
-    })($e->getMessage());
+    $response = new Response(sprintf('<p>Error: %s</p>', $e->getMessage()), 500);
 }
 
 $response->send();
