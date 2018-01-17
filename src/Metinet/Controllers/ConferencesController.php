@@ -9,9 +9,9 @@ use Core\Http\Response;
  * @author Boris Guéry <guery.b@gmail.com>
  */
 
-class EvenementsController
+class ConferencesController
 {
-    public function createEvenement(Request $request): Response {
+    public function createConference(Request $request): Response {
         $nom = $_POST['nom'];
         return new Response(sprintf('nom: '.$nom, $request->getQuery()->get()));
     }

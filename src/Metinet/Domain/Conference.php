@@ -1,8 +1,8 @@
 <?php
 namespace Core\Domains;
-use Core\Domains\DateEvenement;
+use Core\Domains\DateConference;
 use Core\Domains\Salle;
-class Evenement {
+class Conference {
     private $nom;
     private $description;
     private $objectifs;
@@ -13,7 +13,7 @@ class Evenement {
     private $participants;
     private $prixPlace;
 
-    public function __construct(string $nom, string $description, array $objectifs, int $type, DateEvenement $date, Salle $salle, int $nombrePlaces, ?float $prixPlace = 0) {
+    public function __construct(string $nom, string $description, array $objectifs, int $type, DateConference $date, Salle $salle, int $nombrePlaces, ?float $prixPlace = 0) {
         $this->nom = $nom;
         $this->description = $description;
         $this->objectifs = $objectifs;

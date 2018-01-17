@@ -5,7 +5,7 @@
 
 namespace Metinet\Domain;
 
-class InvalidDateEvenement extends \Exception
+class InvalidDateConference extends \Exception
 {
     public static function mustNotBeInThePast(): self
     {

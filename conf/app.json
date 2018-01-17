@@ -31,7 +31,7 @@
       "methods": [
         "POST"
       ],
-      "action": "Metinet:Controllers:EvenementsController::createEvenement"
+      "action": "Metinet:Controllers:ConferencesController::createConference"
     }
   }
 }

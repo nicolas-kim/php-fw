@@ -1,6 +1,6 @@
 <?php
 namespace Core\Domains;
-class DateEvenement {
+class DateConference {
 
     private $dateDebut;
     private $dateFin;
@@ -8,10 +8,10 @@ class DateEvenement {
     private function __construct(DateTime $dateDebut, DateTime $dateFin)
     {
         if ($this->dateDebut < new \DateTimeImmutable('now') && $this->dateFin > new \DateTimeImmutable('now')) {
-            throw InvalidDateEvenement::mustNotBeInThePast();
+            throw InvalidDateConference::mustNotBeInThePast();
         }
         if ($this->dateFin > $this->dateDebut) {
-            throw InvalidDateEvenement::mustBeOkek();
+            throw InvalidDateConference::mustBeOkek();
         }
         $this->dateDebut = $dateDebut;
         $this->dateFin = $dateFin;
