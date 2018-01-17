@@ -2,21 +2,18 @@
 namespace Core\Domains;
 class DateEvenement {
 
-    private $date;
-    private $duree;
+    private $dateDebut;
+    private $dateFin;
 
-    public static function fromString(string $date): self
+    private function __construct(DateTime $dateDebut, DateTime $dateFin)
     {
-        return new self($date);
-    }
-
-    private function __construct(string $date, int $duree)
-    {
-        $dateAsDateTime = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', sprintf('%s 23:59:59', $date));
-        if ($dateAsDateTime > new \DateTimeImmutable('now')) {
-            throw InvalidDate::mustNotBeInTheFuture();
+        if ($this->dateDebut < new \DateTimeImmutable('now') && $this->dateFin > new \DateTimeImmutable('now')) {
+            throw InvalidDate::mustNotBeInThePast();
         }
-        $this->date = $dateAsDateTime;
-        $this->duree = $duree;
+        if ($this->dateFin > $this->dateDebut) {
+            throw InvalidDate::mustBeOkek();
+        }
+        $this->dateDebut = $dateDebut;
+        $this->dateFin = $dateFin;
     }
 }
