@@ -1,7 +1,8 @@
 {
   "logger": {
-    "path": "__DIR__/../var/logs/debug.log",
-    "format": "%url% -> [%date%] - %message% !!!"
+    "type": "mysql",
+    "path": "../var/logs/debug.log",
+    "format": "[%date%] - %url% - %message%"
   },
   "routes": {
     "candidates": {

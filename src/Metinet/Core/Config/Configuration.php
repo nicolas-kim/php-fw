@@ -5,6 +5,7 @@
 
 namespace Metinet\Core\Config;
 
+use Metinet\Core\Logger\Logger;
 use Metinet\Core\Routing\RouteCollection;
 
 class Configuration
@@ -34,5 +35,10 @@ class Configuration
     public function getRoutes(): RouteCollection
     {
         return RouteCollectionFactory::createFromArray($this->getSection('routes'));
+    }
+
+    public function getLogger(): Logger
+    {
+        return LoggerFactory::create($this->getSection('logger'));
     }
 }

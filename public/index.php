@@ -12,8 +12,6 @@ use Metinet\Core\Routing\RouteNotFound;
 use Metinet\Core\Config\JsonFileLoader;
 use Metinet\Core\Config\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
-use Metinet\Core\Logger\FileLogger;
-use Metinet\Core\Logger\SimpleFormatter;
 use Metinet\Core\Config\Configuration;
 
 $request = Request::createFromGlobals();
@@ -24,10 +22,7 @@ $loader = new ChainLoader([
 
 $config = new Configuration($loader);
 
-$logger = new FileLogger(
-    str_replace('__DIR__', __DIR__, $config->getSection('logger')['path']),
-    new SimpleFormatter($config->getSection('logger')['format'])
-);
+$logger = $config->getLogger();
 
 try {
     $controllerResolver = new ControllerResolver(new RouteUrlMatcher($config->getRoutes()));
