@@ -10,4 +10,8 @@ class Salle {
         $this->lieu = $lieu;
         $this->placesMaximum = $placesMaximum;
     }
+
+    public function getPlacesMaximum() {
+        return $this->placesMaximum;
+    }
 }

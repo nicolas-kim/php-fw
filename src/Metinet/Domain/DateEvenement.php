@@ -8,10 +8,10 @@ class DateEvenement {
     private function __construct(DateTime $dateDebut, DateTime $dateFin)
     {
         if ($this->dateDebut < new \DateTimeImmutable('now') && $this->dateFin > new \DateTimeImmutable('now')) {
-            throw InvalidDate::mustNotBeInThePast();
+            throw InvalidDateEvenement::mustNotBeInThePast();
         }
         if ($this->dateFin > $this->dateDebut) {
-            throw InvalidDate::mustBeOkek();
+            throw InvalidDateEvenement::mustBeOkek();
         }
         $this->dateDebut = $dateDebut;
         $this->dateFin = $dateFin;

@@ -13,6 +13,6 @@ class EvenementsController
 {
     public function createEvenement(Request $request): Response {
         $nom = $_POST['nom'];
-        return new Response(sprintf('nom: '.$nom, $request->getQuery()));
+        return new Response(sprintf('nom: '.$nom, $request->getQuery()->get()));
     }
 }

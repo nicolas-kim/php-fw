@@ -7,10 +7,11 @@ class Participant {
     private $telephone;
     private $type;
 
-    public function __construct(string $nom, string $prenom, string $email, int $telephone) {
+    public function __construct(string $nom, string $prenom, string $email, int $telephone, string $type) {
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->telephone = $telephone;
+        $this->type = $type;
     }
 }
