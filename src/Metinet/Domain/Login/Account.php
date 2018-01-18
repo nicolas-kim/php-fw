@@ -3,20 +3,20 @@
  * @author Boris Guéry <guery.b@gmail.com>
  */
 
-namespace Metinet\Domain\Accounts;
+namespace Metinet\Domain\Login;
 
 class Account
 {
     private $id;
     private $username;
-    private $mail;
+    private $email;
     private $password;
 
-    public function __construct(int $id, string $username, string $mail, string $password)
+    public function __construct(int $id, string $username, Email $email, Password $password)
     {
         $this->id = $id;
         $this->username = $username;
-        $this->mail = $mail;
+        $this->email = $email;
         $this->password = $password;
     }
 
@@ -30,9 +30,9 @@ class Account
         return $this->username;
     }
 
-    public function getMail(): string
+    public function getEMail(): string
     {
-        return $this->mail;
+        return $this->email;
     }
 
     public function getPassword(): string

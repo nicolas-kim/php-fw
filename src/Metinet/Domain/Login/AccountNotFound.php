@@ -3,7 +3,7 @@
  * @author Boris Guéry <guery.b@gmail.com>
  */
 
-namespace Metinet\Domain\Accounts;
+namespace Metinet\Domain\Login;
 
 class AccountNotFound extends \Exception
 {

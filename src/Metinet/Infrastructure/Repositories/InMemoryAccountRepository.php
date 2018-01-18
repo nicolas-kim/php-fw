@@ -5,8 +5,8 @@
 
 namespace Metinet\Infrastructure\Repositories;
 
-use Metinet\Domain\Accounts\Account;
-use Metinet\Domain\Accounts\AccountRepository;
+use Metinet\Domain\Login\Account;
+use Metinet\Domain\Login\AccountRepository;
 
 class InMemoryAccountRepository implements AccountRepository
 {
