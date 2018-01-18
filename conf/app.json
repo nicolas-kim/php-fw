@@ -1,10 +1,17 @@
 {
   "logger": {
-    "type": "blackhole",
+    "type": "file",
     "path": "../var/logs/debug.log",
     "format": "[%date%] - %url% - %message%"
   },
   "routes": {
+    "homepage": {
+      "path": "/",
+      "methods": [
+        "GET"
+      ],
+      "action": "Metinet:Controllers:ConferencesController::viewConferences"
+    },
     "candidates": {
       "path": "/students",
       "methods": [
@@ -26,12 +33,19 @@
       ],
       "action": "Metinet:Controllers:CandidatesController::disBonjour"
     },
-    "test": {
-      "path": "/test",
+    "submit_conference": {
+      "path": "/conferences/submit",
       "methods": [
         "GET"
       ],
-      "action": "Metinet:Controllers:ConferencesController::createConference"
+      "action": "Metinet:Controllers:ConferencesController::submitNewConference"
+    },
+    "view_conferences": {
+      "path": "/conferences",
+      "methods": [
+        "GET"
+      ],
+      "action": "Metinet:Controllers:ConferencesController::viewConferences"
     }
   }
 }
