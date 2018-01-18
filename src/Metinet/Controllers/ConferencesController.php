@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace Metinet\Controllers;
 
-use Core\Http\Request;
-use Core\Http\Response;
+use Metinet\Core\Http\Request;
+use Metinet\Core\Http\Response;
 
 /**
  * @author Boris Guéry <guery.b@gmail.com>
@@ -12,7 +12,7 @@ use Core\Http\Response;
 class ConferencesController
 {
     public function createConference(Request $request): Response {
-        $nom = $_POST['nom'];
+        $nom = $_GET['nom'];
         return new Response(sprintf('nom: '.$nom, $request->getQuery()->get()));
     }
 }

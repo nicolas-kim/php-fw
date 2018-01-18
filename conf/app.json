@@ -29,7 +29,7 @@
     "test": {
       "path": "/test",
       "methods": [
-        "POST"
+        "GET"
       ],
       "action": "Metinet:Controllers:ConferencesController::createConference"
     }
