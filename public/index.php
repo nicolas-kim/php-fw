@@ -13,6 +13,7 @@ use Metinet\Core\Config\JsonFileLoader;
 use Metinet\Core\Config\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
 use Metinet\Core\Config\Configuration;
+use Metinet\Core\Session\NativeSession;
 
 $request = Request::createFromGlobals();
 
