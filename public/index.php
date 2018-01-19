@@ -13,6 +13,7 @@ use Metinet\Core\Config\JsonFileLoader;
 use Metinet\Core\Config\ChainLoader;
 use Metinet\Core\Controller\ControllerResolver;
 use Metinet\Core\Config\Configuration;
+use Metinet\Core\Dependencies\ControllerDependencies;
 
 $request = Request::createFromGlobals();
 
@@ -25,7 +26,10 @@ $config = new Configuration($loader);
 $logger = $config->getLogger();
 
 try {
-    $controllerResolver = new ControllerResolver(new RouteUrlMatcher($config->getRoutes()));
+    $controllerResolver = new ControllerResolver(
+        new RouteUrlMatcher($config->getRoutes()),
+        new ControllerDependencies($config)
+    );
     $callableAction = $controllerResolver->resolve($request);
     $response = call_user_func($callableAction, $request);
 } catch (RouteNotFound $e) {
