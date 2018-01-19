@@ -56,6 +56,11 @@
       "path": "/logout",
       "methods": ["GET"],
       "action": "Metinet:Controllers:SecurityController::logout"
+    },
+    "security_register": {
+      "path": "/register",
+      "methods": ["GET", "POST"],
+      "action": "Metinet:Controllers:SecurityController::registerNewAccount"
     }
   }
 }
