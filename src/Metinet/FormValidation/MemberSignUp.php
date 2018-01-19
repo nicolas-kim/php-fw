@@ -59,8 +59,8 @@ class MemberSignUp
             $this->errors[] = 'Password mismatch';
         }
 
-        if (\strlen($this->password) < 8) {
-            $this->errors[] = 'Password must be at least 8 chars';
+        if (\strlen($this->password) < 1) {
+            $this->errors[] = 'Password must be at least 1 char';
         }
     }
 
@@ -74,32 +74,32 @@ class MemberSignUp
         return $this->errors;
     }
 
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    public function getPhoneNumber(): string
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getPasswordConfirm(): string
+    public function getPasswordConfirm(): ?string
     {
         return $this->passwordConfirm;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

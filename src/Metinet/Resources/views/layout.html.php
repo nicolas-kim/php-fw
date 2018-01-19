@@ -16,7 +16,7 @@
                 <a class="nav-link" href="/conferences">Conferences</a>
                 <a class="nav-link" href="/conferences/submit">Soumettre une conference</a>
                 <a class="nav-link" href="/hello">Bonjour</a>
-                <a class="nav-link" href="/join">Rejoindre l'association</a>
+                <a class="nav-link" href="/members/sign-up">Rejoindre l'association</a>
             </nav>
         </div>
     </div>

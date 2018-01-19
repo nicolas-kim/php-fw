@@ -7,6 +7,11 @@ namespace Metinet\Core\Session;
 
 class NativeSession implements Session
 {
+    public function __construct()
+    {
+        $this->safeStart();
+    }
+
     public function start(): void
     {
         session_start();
@@ -31,12 +36,14 @@ class NativeSession implements Session
 
     public function get(string $attributeName, $default = null)
     {
-        return $_SESSION[$attributeName] ?? $default;
+        return isset($_SESSION[$attributeName]) 
+            ? unserialize($_SESSION[$attributeName])
+            : $default;
     }
 
     public function set(string $attributeName, $value): void
     {
-        $_SESSION[$attributeName] = $value;
+        $_SESSION[$attributeName] = serialize($value);
     }
 
     public function remove(string $attributeName): void

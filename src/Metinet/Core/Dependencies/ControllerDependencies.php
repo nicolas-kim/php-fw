@@ -21,6 +21,7 @@ use Metinet\Domain\Conferences\ConferenceRepository;
 use Metinet\Domain\Members\MemberRepository;
 use Metinet\Infrastructure\Repositories\InMemoryConferenceRepository;
 use Metinet\Infrastructure\Repositories\InMemoryMemberRepository;
+use Metinet\Infrastructure\Repositories\PdoMemberRepository;
 use Metinet\Infrastructure\Security\MemberAccountProvider;
 
 class ControllerDependencies
@@ -34,6 +35,7 @@ class ControllerDependencies
     private $conferenceRepository;
     private $accountProvider;
     private $passwordEncoder;
+    private $pdo;
 
     public function __construct(Configuration $configuration)
     {
@@ -43,6 +45,25 @@ class ControllerDependencies
     public function getLogger(): Logger
     {
         return $this->configuration->getLogger();
+    }
+
+    public function getDatabase(): \PDO
+    {
+        if (!$this->pdo) {
+            
+            $this->pdo = new \PDO(
+                sprintf(
+                    'mysql:dbname=%s;host=%s',
+                    $this->configuration->getSection('database')['name'],
+                    $this->configuration->getSection('database')['host']
+                ),
+                $this->configuration->getSection('database')['user'],
+                $this->configuration->getSection('database')['password']
+            );
+            $this->pdo->query('SET NAMES UTF8;');
+        }
+
+        return $this->pdo;
     }
 
     public function getViewRenderer(): ViewRenderer
@@ -93,6 +114,7 @@ class ControllerDependencies
         if (!$this->memberRepository) {
 
             $this->memberRepository = new InMemoryMemberRepository();
+            $this->memberRepository = new PdoMemberRepository($this->getDatabase());
         }
 
         return $this->memberRepository;

@@ -17,9 +17,9 @@ class Sha1PasswordEncoder implements PasswordEncoder
     public function encode(string $password, string $salt): EncodedPassword
     {
         for ($i = 0, $hashedPassword = $password; $i < $this->iterationCount; ++$i) {
-            $hashedPassword = sha1($hashedPassword);
+            $hashedPassword = sha1(sprintf('%s{%s}', $hashedPassword, $salt));
         }
 
-        return new EncodedPassword(sprintf('%s{%s}', $hashedPassword, $salt), $salt);
+        return new EncodedPassword($hashedPassword, $salt);
     }
 }

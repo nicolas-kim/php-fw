@@ -7,6 +7,7 @@ namespace Metinet\Controllers;
 
 use Metinet\Core\Http\Request;
 use Metinet\Core\Http\Response;
+use Metinet\Domain\Members\MemberFactory;
 use Metinet\FormValidation\MemberSignUp;
 
 class MembersController extends Controller
@@ -21,14 +22,15 @@ class MembersController extends Controller
         $signUp = MemberSignUp::fromRequest($request);
 
         if ($request->isPost()) {
-//            $email = $request->getRequest()->get('email');
-//            $password = $request->getRequest()->get('password');
-//            $passwordConfirm = $request->getRequest()->get('password_confirm');
-//            $firstName = $request->getRequest()->get('first_name');
-//            $lastName = $request->getRequest()->get('last_name');
-//            $phoneNumber = $request->getRequest()->get('phone_number');
-//
-//            var_dump($email, $password, $passwordConfirm, $firstName, $lastName);
+
+            if ($signUp->isValid()) {
+
+                $memberFactory = new MemberFactory($this->controllerDependencies->getPasswordEncoder());
+                $member = $memberFactory->fromSignUp($signUp);
+                $this->controllerDependencies->getMemberRepository()->save($member);
+
+                return new Response('', 303, ['Location' => '/login']);
+            }
 
             $formErrors = $signUp->getErrors();
         }
@@ -37,12 +39,5 @@ class MembersController extends Controller
             'errors' => $formErrors ?? [],
             'signUp' => $signUp
         ]));
-    }
-
-    public function logout(Request $request): Response
-    {
-        $this->getAuthenticationContext()->logout();
-
-        return new Response('', 303, ['Location' => '/login']);
     }
 }

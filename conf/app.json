@@ -8,6 +8,12 @@
     "layoutPath": "../src/Metinet/Resources/views/layout.html.php",
     "viewsDirectory": "../src/Metinet/Resources/views/"
   },
+  "database": {
+    "host": "192.168.33.10",
+    "name": "metinet",
+    "user": "root",
+    "password": ""
+  },
   "routes": {
     "homepage": {
       "path": "/",
